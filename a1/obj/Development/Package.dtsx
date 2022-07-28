@@ -1,0 +1,1188 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/3/2022 1:15:51 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ALWIS-PC"
+  DTS:CreatorName="ALWIS-PC\DELL"
+  DTS:DTSID="{14F99163-E44B-4AB6-8CF8-72A93C923673}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{BA126E2C-5197-46CE-8195-5CA827205746}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ALWIS-PC.IT19960814]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CA71914F-C608-45D1-AC57-252E091C6D17}"
+      DTS:ObjectName="ALWIS-PC.IT19960814">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=ALWIS-PC;Initial Catalog=IT19960814;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ALWIS-PC.IT19960814-Stg]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A0CC6C31-602B-412A-9D47-33E4B2C1051D}"
+      DTS:ObjectName="ALWIS-PC.IT19960814-Stg">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=ALWIS-PC;Initial Catalog=IT19960814-Stg;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\extract center info"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{88353276-17A7-4B7C-A9AF-8670183C7539}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="extract center info"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\extract center info.EventHandlers[OnPreExecute]"
+          DTS:CreationName="OnPreExecute"
+          DTS:DTSID="{914092A5-9224-43C3-8172-42E5D66DE60F}"
+          DTS:EventID="64"
+          DTS:EventName="OnPreExecute"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{B6B30614-10F3-4544-8B7C-0497AA07832F}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\extract center info.EventHandlers[OnPreExecute]\Execute SQL Task"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{3481D800-B738-4B94-83A5-55887826D622}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Execute SQL Task"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{A0CC6C31-602B-412A-9D47-33E4B2C1051D}"
+                  SQLTask:SqlStatementSource="truncate table [IT19960814-Stg].[dbo].[STG_centerInfo]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\extract center info\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG_centerInfo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\extract center info\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ALWIS-PC.IT19960814-Stg]"
+                  connectionManagerRefId="Package.ConnectionManagers[ALWIS-PC.IT19960814-Stg]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[center_id]"
+                      cachedDataType="i4"
+                      cachedName="center_id"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_id]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]" />
+                    <inputColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[city_code]"
+                      cachedDataType="i4"
+                      cachedName="city_code"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[city_code]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[city_code]" />
+                    <inputColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[region_code]"
+                      cachedDataType="i4"
+                      cachedName="region_code"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region_code]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[region_code]" />
+                    <inputColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[center_type]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="center_type"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_type]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_type]" />
+                    <inputColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[op_area]"
+                      cachedDataType="r8"
+                      cachedName="op_area"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[op_area]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[op_area]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_id]"
+                      dataType="i4"
+                      name="center_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[city_code]"
+                      dataType="i4"
+                      name="city_code" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region_code]"
+                      dataType="i4"
+                      name="region_code" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_type]"
+                      dataType="wstr"
+                      length="50"
+                      name="center_type" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[op_area]"
+                      dataType="r8"
+                      name="op_area" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\extract center info\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\extract center info\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[center_info]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\extract center info\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ALWIS-PC.IT19960814]"
+                  connectionManagerRefId="Package.ConnectionManagers[ALWIS-PC.IT19960814]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_id]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]"
+                      name="center_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[city_code]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[city_code]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[city_code]"
+                      name="city_code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[region_code]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[region_code]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[region_code]"
+                      name="region_code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_type]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_type]"
+                      length="50"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_type]"
+                      name="center_type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[op_area]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[op_area]"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].Columns[op_area]"
+                      name="op_area"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_id]"
+                      dataType="i4"
+                      name="center_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[city_code]"
+                      dataType="i4"
+                      name="city_code" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[region_code]"
+                      dataType="i4"
+                      name="region_code" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_type]"
+                      dataType="wstr"
+                      length="50"
+                      name="center_type" />
+                    <externalMetadataColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[op_area]"
+                      dataType="r8"
+                      name="op_area" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_id]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_id]"
+                      name="center_id" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[city_code]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[city_code]"
+                      name="city_code" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[region_code]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[region_code]"
+                      name="region_code" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_type]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_type]"
+                      name="center_type" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[op_area]"
+                      dataType="r8"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[op_area]"
+                      name="op_area" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\extract center info.Paths[OLE DB Source Output]"
+              endId="Package\extract center info\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\extract center info\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\extract checkout info"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{FCD8CBFC-1FA9-4696-8779-95F7AC87CC6E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="extract checkout info"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\extract checkout info.EventHandlers[OnPreExecute]"
+          DTS:CreationName="OnPreExecute"
+          DTS:DTSID="{E4AE1C3C-F1D3-40F5-8D57-123DA7FD23B6}"
+          DTS:EventID="0"
+          DTS:EventName="OnPreExecute"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{AD6AF4F0-46B9-4A57-90EA-9F0CCCC97271}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\extract checkout info.EventHandlers[OnPreExecute]\Execute SQL Task"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{212DA3DD-1178-4A84-B2A4-17895AB53169}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Execute SQL Task"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{A0CC6C31-602B-412A-9D47-33E4B2C1051D}"
+                  SQLTask:SqlStatementSource="truncate table [IT19960814-Stg].[dbo].[STG_check_out]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\extract checkout info\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[STG_check_out]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\extract checkout info\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ALWIS-PC.IT19960814-Stg]"
+                  connectionManagerRefId="Package.ConnectionManagers[ALWIS-PC.IT19960814-Stg]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="i4"
+                      cachedName="id"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[customer_ID]"
+                      cachedDataType="i4"
+                      cachedName="customer_ID"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_ID]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[customer_ID]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[week]"
+                      cachedDataType="i4"
+                      cachedName="week"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[week]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[week]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[center_id]"
+                      cachedDataType="i4"
+                      cachedName="center_id"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[meal_id]"
+                      cachedDataType="i4"
+                      cachedName="meal_id"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meal_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[meal_id]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ref_oder_id]"
+                      cachedDataType="i4"
+                      cachedName="ref_oder_id"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ref_oder_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[ref_oder_id]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[checkout_price]"
+                      cachedDataType="r8"
+                      cachedName="checkout_price"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[checkout_price]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[checkout_price]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[base_price]"
+                      cachedDataType="r8"
+                      cachedName="base_price"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[base_price]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_price]" />
+                    <inputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[emailer_for_promotion]"
+                      cachedDataType="i4"
+                      cachedName="emailer_for_promotion"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[emailer_for_promotion]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[emailer_for_promotion]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[customer_ID]"
+                      dataType="i4"
+                      name="customer_ID" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[week]"
+                      dataType="i4"
+                      name="week" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[center_id]"
+                      dataType="i4"
+                      name="center_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[meal_id]"
+                      dataType="i4"
+                      name="meal_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ref_oder_id]"
+                      dataType="i4"
+                      name="ref_oder_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[checkout_price]"
+                      dataType="r8"
+                      name="checkout_price" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[base_price]"
+                      dataType="r8"
+                      name="base_price" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[emailer_for_promotion]"
+                      dataType="i4"
+                      name="emailer_for_promotion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\extract checkout info\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\extract checkout info\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[check_out]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\extract checkout info\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ALWIS-PC.IT19960814]"
+                  connectionManagerRefId="Package.ConnectionManagers[ALWIS-PC.IT19960814]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[customer_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[customer_ID]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[customer_ID]"
+                      name="customer_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[week]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[week]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[week]"
+                      name="week"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[center_id]"
+                      name="center_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[meal_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[meal_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[meal_id]"
+                      name="meal_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[ref_oder_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ref_oder_id]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[ref_oder_id]"
+                      name="ref_oder_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[checkout_price]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[checkout_price]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[checkout_price]"
+                      name="checkout_price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_price]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[base_price]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[base_price]"
+                      name="base_price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[emailer_for_promotion]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[emailer_for_promotion]"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].Columns[emailer_for_promotion]"
+                      name="emailer_for_promotion"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="i4"
+                      name="id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[customer_ID]"
+                      dataType="i4"
+                      name="customer_ID" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[week]"
+                      dataType="i4"
+                      name="week" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[center_id]"
+                      dataType="i4"
+                      name="center_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[meal_id]"
+                      dataType="i4"
+                      name="meal_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ref_oder_id]"
+                      dataType="i4"
+                      name="ref_oder_id" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[checkout_price]"
+                      dataType="r8"
+                      name="checkout_price" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[base_price]"
+                      dataType="r8"
+                      name="base_price" />
+                    <externalMetadataColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[emailer_for_promotion]"
+                      dataType="i4"
+                      name="emailer_for_promotion" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[customer_ID]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[customer_ID]"
+                      name="customer_ID" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[week]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[week]"
+                      name="week" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_id]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[center_id]"
+                      name="center_id" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[meal_id]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[meal_id]"
+                      name="meal_id" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ref_oder_id]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ref_oder_id]"
+                      name="ref_oder_id" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[checkout_price]"
+                      dataType="r8"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[checkout_price]"
+                      name="checkout_price" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[base_price]"
+                      dataType="r8"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[base_price]"
+                      name="base_price" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[emailer_for_promotion]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[emailer_for_promotion]"
+                      name="emailer_for_promotion" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\extract checkout info.Paths[OLE DB Source Output]"
+              endId="Package\extract checkout info\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\extract checkout info\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{608C40E0-AEA5-4685-9B77-D753139F487A}"
+      DTS:From="Package\extract center info"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\extract checkout info" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\extract center info"
+          TopLeft="105.714287514589,95.5882366347065" />
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\extract checkout info"
+          TopLeft="360.000006130764,100.176471993172" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="270.514287514589,118.682354313939">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="89.4857186161743,0"
+              Start="0,0"
+              End="81.9857186161743,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="81.9857186161743,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\extract center info">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\extract center info\OLE DB Source"
+          TopLeft="24.7857146141481,75.0882362700664" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\extract center info\OLE DB Destination"
+          TopLeft="375.714292112662,89.4705894900854" />
+        <EdgeLayout
+          Id="Package\extract center info.Paths[OLE DB Source Output]"
+          TopLeft="174.385714614148,95.8882362700664">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="201.328577498514,14.382353220019"
+              Start="0,0"
+              End="193.828577498514,14.382353220019">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="96.664288749257,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="96.664288749257,0"
+                    Point2="100.664288749257,0"
+                    Point3="100.664288749257,4" />
+                  <mssgle:LineSegment
+                    End="100.664288749257,10.382353220019" />
+                  <mssgle:CubicBezierSegment
+                    Point1="100.664288749257,10.382353220019"
+                    Point2="100.664288749257,14.382353220019"
+                    Point3="104.664288749257,14.382353220019" />
+                  <mssgle:LineSegment
+                    End="193.828577498514,14.382353220019" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\extract center info\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\extract center info\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <DtsEventHandler
+    design-time-name="Package\extract center info.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\extract center info.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="342,149" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\extract checkout info">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\extract checkout info\OLE DB Source"
+          TopLeft="179,174" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\extract checkout info\OLE DB Destination"
+          TopLeft="488,189" />
+        <EdgeLayout
+          Id="Package\extract checkout info.Paths[OLE DB Source Output]"
+          TopLeft="328.6,194.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="159.4,15"
+              Start="0,0"
+              End="151.9,15">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="75.7,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="75.7,0"
+                    Point2="79.7,0"
+                    Point3="79.7,4" />
+                  <mssgle:LineSegment
+                    End="79.7,11" />
+                  <mssgle:CubicBezierSegment
+                    Point1="79.7,11"
+                    Point2="79.7,15"
+                    Point3="83.7,15" />
+                  <mssgle:LineSegment
+                    End="151.9,15" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\extract checkout info\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\extract checkout info\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <DtsEventHandler
+    design-time-name="Package\extract checkout info.EventHandlers[OnPreExecute]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\extract checkout info.EventHandlers[OnPreExecute]\Execute SQL Task"
+          TopLeft="316,251" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
